@@ -28,7 +28,7 @@ if "language_model" not in st.session_state:
 
 if "document_store" not in st.session_state:
     st.session_state.document_store = InMemoryVectorStore(st.session_state.embedding_model)
-
+#
 # Enhanced prompt template for better responses
 PROMPT_TEMPLATE = """
 You are an AI specialized in answering questions about cancer-related research.
