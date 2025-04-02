@@ -8,10 +8,10 @@ from langchain_core.prompts import (
     AIMessagePromptTemplate,
     ChatPromptTemplate
 )
+
 # Custom CSS styling
 st.markdown("""
 <style>
-    /* Existing styles */
     .main {
         background-color: #1a1a1a;
         color: #ffffff;
@@ -22,60 +22,19 @@ st.markdown("""
     .stTextInput textarea {
         color: #ffffff !important;
     }
-    
-    /* Add these new styles for select box */
-    .stSelectbox div[data-baseweb="select"] {
-        color: white !important;
-        background-color: #3d3d3d !important;
-    }
-    
-    .stSelectbox svg {
-        fill: white !important;
-    }
-    
-    .stSelectbox option {
-        background-color: #2d2d2d !important;
-        color: white !important;
-    }
-    
-    /* For dropdown menu items */
-    div[role="listbox"] div {
-        background-color: #2d2d2d !important;
-        color: white !important;
-    }
 </style>
 """, unsafe_allow_html=True)
-st.title("🧠 DeepSeek Code Companion")
-st.caption("🚀 Your AI Pair Programmer with Debugging Superpowers")
 
-# Sidebar configuration
-with st.sidebar:
-    st.header("⚙️ Configuration")
-    selected_model = st.selectbox(
-        "Choose Model",
-        ["deepseek-r1:1.5b", "deepseek-r1:3b"],
-        index=0
-    )
-    st.divider()
-    st.markdown("### Model Capabilities")
-    st.markdown("""
-    - 🐍 Python Expert
-    - 🐞 Debugging Assistant
-    - 📝 Code Documentation
-    - 💡 Solution Design
-    """)
-    st.divider()
-    st.markdown("Built with [Ollama](https://ollama.ai/) | [LangChain](https://python.langchain.com/)")
+st.title("🧠 CancerBuddy ")
+st.caption("🚀 Your Cancer Chatbot")
 
 
-# initiate the chat engine
 
-llm_engine=ChatOllama(
-    model=selected_model,
+# Initiate the chat engine
+llm_engine = ChatOllama(
+    model="deepseek-r1:1.5b",
     base_url="http://localhost:11434",
-
     temperature=0.3
-
 )
 
 # System prompt configuration
@@ -86,7 +45,7 @@ system_prompt = SystemMessagePromptTemplate.from_template(
 
 # Session state management
 if "message_log" not in st.session_state:
-    st.session_state.message_log = [{"role": "ai", "content": "Hi! I'm DeepSeek. How can I help you code today? 💻"}]
+    st.session_state.message_log = [{"role": "ai", "content": "Hi! I'm CancerBuddy. How can I help you today? 💻"}]
 
 # Chat container
 chat_container = st.container()
@@ -98,10 +57,10 @@ with chat_container:
             st.markdown(message["content"])
 
 # Chat input and processing
-user_query = st.chat_input("Type your coding question here...")
+user_query = st.chat_input("Type your  question here...")
 
 def generate_ai_response(prompt_chain):
-    processing_pipeline=prompt_chain | llm_engine | StrOutputParser()
+    processing_pipeline = prompt_chain | llm_engine | StrOutputParser()
     return processing_pipeline.invoke({})
 
 def build_prompt_chain():
